@@ -24,6 +24,9 @@ left: WGAN-GP 50 epoch, right: DRAGAN 50 epoch
 
 # Usage
 
+### Configuration
+
+You can directly change some configurations such as gpu_id and learning rate etc. in the head of each code.
 ### Train
 ```
 train_celeba_wgan_gp.py
