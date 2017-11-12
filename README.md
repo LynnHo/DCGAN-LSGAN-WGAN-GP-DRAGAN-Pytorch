@@ -11,8 +11,11 @@ DRAGAN: [How to Train Your DRAGAN](https://arxiv.org/abs/1705.07215)
 ### Celeba
 left: WGAN-GP 50 epoch, right: DRAGAN 50 epoch
 
-<img src="./pics/celeba_wgan_50.jpg" width="48%" height="48%"> <img src="./pics/celeba_wgan_gp_50.jpg" width="48%" height="48%">
+<img src="./pics/celeba_wgan_gp_50.jpg" width="48%" height="48%"> <img src="./pics/celeba_dragan_50.jpg" width="48%" height="48%">
 
+### Loss curves (very stable training!!!)
+left: WGAN-GP 50 epoch, right: DRAGAN 50 epoch
+<img src="./pics/celeba_wgan_gp_50_loss.jpg" width="48%" height="48%"> <img src="./pics/celeba_dragan_50_loss.jpg" width="48%" height="48%">
 
 # Prerequisites
 - pytorch 0.2
