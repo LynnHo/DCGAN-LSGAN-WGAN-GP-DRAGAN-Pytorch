@@ -29,10 +29,10 @@ train_celeba_dragan.py
 ```
 ## Tensorboard
 If you have installed tensorboard, you can use it to have a look at the loss curves.
-    ```
-    tensorboard --logdir=./summaries/celeba_wgan_gp --port=6006
-    ...
-    ```
+```
+tensorboard --logdir=./summaries/celeba_wgan_gp --port=6006
+...
+```
 
 ## Datasets
 1. Celeba should be prepared by yourself in ***./data/img_align_celeba/img_align_celeba/***
