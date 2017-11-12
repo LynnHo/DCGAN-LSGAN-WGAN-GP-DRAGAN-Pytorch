@@ -15,6 +15,7 @@ left: WGAN-GP 100 epoch, right: DRAGAN 100 epoch
 
 ### Loss curves (very stable training!!!)
 left: WGAN-GP 100 epoch, right: DRAGAN 100 epoch
+
 <img src="./pics/celeba_wgan_gp_100_loss.jpg" width="48%" height="48%"> <img src="./pics/celeba_dragan_100_loss.jpg" width="48%" height="48%">
 
 # Prerequisites
