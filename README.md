@@ -21,19 +21,19 @@ left: WGAN-GP 50 epoch, right: DRAGAN 50 epoch
 
 # Usage
 
-## Train
+### Train
 ```
 train_celeba_wgan_gp.py
 train_celeba_dragan.py
 ...
 ```
-## Tensorboard
+### Tensorboard
 If you have installed tensorboard, you can use it to have a look at the loss curves.
 ```
 tensorboard --logdir=./summaries/celeba_wgan_gp --port=6006
 ...
 ```
 
-## Datasets
+### Datasets
 1. Celeba should be prepared by yourself in ***./data/img_align_celeba/img_align_celeba/***
     - Download the dataset: https://www.dropbox.com/sh/8oqt9vytwxb3s4r/AAB06FXaQRUNtjW9ntaoPGvCa?dl=0
