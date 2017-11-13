@@ -4,7 +4,7 @@ Pytorch implementation of WGAN-GP and DRAGAN, both of which use gradient penalty
 
 WGAN-GP: [Improved Training of Wasserstein GANs](http://arxiv.org/abs/1704.00028)
 
-DRAGAN: [How to Train Your DRAGAN](https://arxiv.org/abs/1705.07215)
+DRAGAN: [On Convergence and Stability of GANs](https://arxiv.org/abs/1705.07215)
 
 ## Exemplar results
 
