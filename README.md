@@ -30,8 +30,8 @@ left: WGAN-GP 100 epoch, right: DRAGAN 100 epoch
 You can directly change some configurations such as gpu_id and learning rate etc. in the head of each code.
 ### Train
 ```
-train_celeba_wgan_gp.py
-train_celeba_dragan.py
+python train_celeba_wgan_gp.py
+python train_celeba_dragan.py
 ...
 ```
 ### Tensorboard
