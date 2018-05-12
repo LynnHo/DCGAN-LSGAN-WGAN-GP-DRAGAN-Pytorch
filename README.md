@@ -1,3 +1,9 @@
+***Recommendation***
+
+- Our GAN based work for facial attribute editing - https://github.com/LynnHo/AttGAN-Tensorflow.
+
+---
+
 # WGAN-GP and DRAGAN
 
 Pytorch implementation of WGAN-GP and DRAGAN, both of which use gradient penalty to enhance the training quality. We use DCGAN as the network architecture in all experiments.
