@@ -50,7 +50,7 @@ tensorboard --logdir=./summaries/celeba_wgan_gp --port=6006
 ### Datasets
 1. Celeba should be prepared by yourself in ***./data/img_align_celeba/img_align_celeba/***
     - Download the dataset: https://www.dropbox.com/sh/8oqt9vytwxb3s4r/AAB06FXaQRUNtjW9ntaoPGvCa?dl=0
-    - the above links might be inaccessible, the alternative is
+    - the above links might be inaccessible, the alternatives are
         - ***img_align_celeba.zip***
             - https://pan.baidu.com/s/1eSNpdRG#list/path=%2FCelebA%2FImg or
             - https://drive.google.com/drive/folders/0B7EVK8r0v71pTUZsaXdaSnZBZzg
