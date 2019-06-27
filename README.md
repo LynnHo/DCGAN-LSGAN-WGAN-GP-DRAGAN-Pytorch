@@ -1,56 +1,92 @@
 ***Recommendation***
 
-- Our GAN based work for facial attribute editing - https://github.com/LynnHo/AttGAN-Tensorflow.
+- Our GAN based work for facial attribute editing - [AttGAN](https://github.com/LynnHo/AttGAN-Tensorflow).
 
----
+***New***
 
-# WGAN-GP and DRAGAN
+- 28 June 2019: We re-implement these GANs by **Pytorch 1.1**! The old version is here: [v0](https://github.com/LynnHo/WGAN-GP-DRAGAN-Celeba-Pytorch/tree/v0) or in the "v0" directory.
+- [**Tensorflow 2** Version](https://github.com/LynnHo/DCGAN-LSGAN-WGAN-GP-DRAGAN-Tensorflow-2)
 
-Pytorch implementation of WGAN-GP and DRAGAN, both of which use gradient penalty to enhance the training quality. We use DCGAN as the network architecture in all experiments.
+<hr style="height:1px" />
 
-WGAN-GP: [Improved Training of Wasserstein GANs](http://arxiv.org/abs/1704.00028)
+<p align="center">
+    <img src="./pics/celeba_dragan.gif" width="49.7%" />  <img src="./pics/anime_dragan.gif" width="49.7%" />
+</p>
 
-DRAGAN: [On Convergence and Stability of GANs](https://arxiv.org/abs/1705.07215)
+<hr style="height:1px" />
+
+# <p align="center"> GANs - Pytorch </p>
+
+Pytorch implementations of [DCGAN](https://arxiv.org/abs/1511.06434), [LSGAN](https://arxiv.org/abs/1611.04076), [WGAN-GP](http://arxiv.org/abs/1704.00028) and [DRAGAN](https://arxiv.org/abs/1705.07215v5).
 
 ## Exemplar results
 
-### Celeba
-left: WGAN-GP 100 epoch, right: DRAGAN 100 epoch
+### Fashion-MNIST
 
-<img src="./pics/celeba_wgan_gp_100.jpg" width="48%" height="48%"> <img src="./pics/celeba_dragan_100.jpg" width="48%" height="48%">
+DCGAN                                    | LSGAN                                      | WGAN-GP                                      | DRAGAN
+:---:                                    | :---:                                      | :---:                                        | :---:
+<img src="./pics/fashion-mnist_gan.jpg"> | <img src="./pics/fashion-mnist_lsgan.jpg"> | <img src="./pics/fashion-mnist_wgan-gp.jpg"> | <img src="./pics/fashion-mnist_dragan.jpg">
 
-### Loss curves (very stable training!!!)
-left: WGAN-GP 100 epoch, right: DRAGAN 100 epoch
+### CelebA
 
-<img src="./pics/celeba_wgan_gp_100_loss.png" width="48%" height="48%"> <img src="./pics/celeba_dragan_100_loss.png" width="48%" height="48%">
+DCGAN                                 | LSGAN
+:---:                                 | :---:
+<img src="./pics/celeba_gan.jpg">     | <img src="./pics/celeba_lsgan.jpg">
+**WGAN-GP**                           | **DRAGAN**
+<img src="./pics/celeba_wgan-gp.jpg"> | <img src="./pics/celeba_dragan.jpg">
 
-# Prerequisites
-- pytorch 0.2
-- tensorboardX https://github.com/lanpa/tensorboard-pytorch
-- python 2.7
+### Anime
+
+**WGAN-GP**                          | **DRAGAN**
+:---:                                | :---:
+<img src="./pics/anime_wgan-gp.jpg"> | <img src="./pics/anime_dragan.jpg">
 
 # Usage
 
-### Configuration
+- Prerequisites
 
-You can directly change some configurations such as gpu_id and learning rate etc. in the head of each code.
-### Train
-```
-python train_celeba_wgan_gp.py
-python train_celeba_dragan.py
-...
-```
-### Tensorboard
-If you have installed tensorboard, you can use it to have a look at the loss curves.
-```
-tensorboard --logdir=./summaries/celeba_wgan_gp --port=6006
-...
-```
+    - PyTorch 1.1
+    - tensorboardX
+    - scikit-image, oyaml, tqdm
+    - Python 3.6
 
-### Datasets
-1. Celeba should be prepared by yourself in ***./data/img_align_celeba/img_align_celeba/***
-    - Download the dataset: https://www.dropbox.com/sh/8oqt9vytwxb3s4r/AAB06FXaQRUNtjW9ntaoPGvCa?dl=0
-    - the above links might be inaccessible, the alternatives are
-        - ***img_align_celeba.zip***
-            - https://pan.baidu.com/s/1eSNpdRG#list/path=%2FCelebA%2FImg or
-            - https://drive.google.com/drive/folders/0B7EVK8r0v71pTUZsaXdaSnZBZzg
+- Datasets
+
+    - Fashion-MNIST will be automatically downloaded
+    - CelebA should be prepared by yourself in **./data/img_align_celeba/\*.jpg**
+        - dataset link: [Dropbox](https://www.dropbox.com/sh/8oqt9vytwxb3s4r/AAB06FXaQRUNtjW9ntaoPGvCa?dl=0)
+        - the above link might be inaccessible, the alternatives are (find "img_align_celeba.zip")
+            - [Baidu Netdisk](https://pan.baidu.com/s/1eSNpdRG#list/path=%2Fsharelink2785600790-938296576863897%2FCelebA%2FImg&parentPath=%2Fsharelink2785600790-938296576863897) or
+            - [Google Drive](https://drive.google.com/drive/folders/0B7EVK8r0v71pTUZsaXdaSnZBZzg)
+    - the Anime dataset should be prepared by yourself in **./data/faces/\*.jpg**
+        - dataset link: https://pan.baidu.com/s/1eSifHcA, password: g5qa
+        - reference: https://zhuanlan.zhihu.com/p/24767059
+
+- Examples of training
+
+    - Fashion-MNIST DCGAN
+
+        ```console
+        CUDA_VISIBLE_DEVICES=0 python train.py --dataset=fashion_mnist --epoch=25 --adversarial_loss_mode=gan
+        ```
+
+    - CelebA DRAGAN
+
+        ```console
+        CUDA_VISIBLE_DEVICES=0 python train.py --dataset=celeba --epoch=25 --adversarial_loss_mode=gan --gradient_penalty_mode=dragan
+        ```
+
+    - Anime WGAN-GP
+
+        ```console
+        CUDA_VISIBLE_DEVICES=0 python train.py --dataset=anime --epoch=200 --adversarial_loss_mode=wgan --gradient_penalty_mode=wgan-gp --n_d=5
+        ```
+
+    - see more training exampls in [commands.sh](./commands.sh)
+
+    - tensorboard for loss visualization
+
+        ```console
+        tensorboard --logdir ./output/fashion_mnist_gan/summaries --port 6006
+        ```
+
