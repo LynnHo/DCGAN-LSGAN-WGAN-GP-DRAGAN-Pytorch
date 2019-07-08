@@ -130,7 +130,7 @@ def train_D(x_real):
     D.train()
 
     z = torch.randn(args.batch_size, args.z_dim, 1, 1).to(device)
-    x_fake = G(z)
+    x_fake = G(z).detach()
 
     x_real_d_logit = D(x_real)
     x_fake_d_logit = D(x_fake)
@@ -147,6 +147,7 @@ def train_D(x_real):
     return {'d_loss': x_real_d_loss + x_fake_d_loss, 'gp': gp}
 
 
+@torch.no_grad()
 def sample(z):
     G.eval()
     return G(z)
