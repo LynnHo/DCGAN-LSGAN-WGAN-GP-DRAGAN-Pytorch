@@ -17,7 +17,7 @@
 
 # <p align="center"> GANs - Pytorch </p>
 
-Pytorch implementations of [DCGAN](https://arxiv.org/abs/1511.06434), [LSGAN](https://arxiv.org/abs/1611.04076), [WGAN-GP](http://arxiv.org/abs/1704.00028) and [DRAGAN](https://arxiv.org/abs/1705.07215v5).
+Pytorch implementations of [DCGAN](https://arxiv.org/abs/1511.06434), [LSGAN](https://arxiv.org/abs/1611.04076), [WGAN-GP](http://arxiv.org/abs/1704.00028)([LP](https://arxiv.org/abs/1709.08894)) and [DRAGAN](https://arxiv.org/abs/1705.07215v5).
 
 ## Exemplar results
 
@@ -34,6 +34,8 @@ DCGAN                                 | LSGAN
 <img src="./pics/celeba_gan.jpg">     | <img src="./pics/celeba_lsgan.jpg">
 **WGAN-GP**                           | **DRAGAN**
 <img src="./pics/celeba_wgan-gp.jpg"> | <img src="./pics/celeba_dragan.jpg">
+**WGAN-LP**                           | **DRAGAN-LP**
+<img src="./pics/celeba_wgan-lp.jpg"> | <img src="./pics/celeba_dragan-lp.jpg">
 
 ### Anime
 

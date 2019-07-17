@@ -27,7 +27,7 @@ py.arg('--beta_1', type=float, default=0.5)
 py.arg('--n_d', type=int, default=1)  # # d updates per g update
 py.arg('--z_dim', type=int, default=128)
 py.arg('--adversarial_loss_mode', default='gan', choices=['gan', 'hinge_v1', 'hinge_v2', 'lsgan', 'wgan'])
-py.arg('--gradient_penalty_mode', default='none', choices=['none', 'dragan', 'wgan-gp'])
+py.arg('--gradient_penalty_mode', default='none', choices=['none', 'dragan', 'dragan-lp', 'wgan-gp', 'wgan-lp'])
 py.arg('--gradient_penalty_weight', type=float, default=10.0)
 py.arg('--experiment_name', default='none')
 py.arg('--gradient_penalty_d_norm', default='layer_norm', choices=['instance_norm', 'layer_norm'])  # !!!
@@ -87,7 +87,7 @@ elif args.dataset == 'custom':
 # setup the normalization function for discriminator
 if args.gradient_penalty_mode == 'none':
     d_norm = 'batch_norm'
-elif args.gradient_penalty_mode in ['dragan', 'wgan-gp']:  # cannot use batch normalization with gradient penalty
+else:  # cannot use batch normalization with gradient penalty
     d_norm = args.gradient_penalty_d_norm
 
 # networks

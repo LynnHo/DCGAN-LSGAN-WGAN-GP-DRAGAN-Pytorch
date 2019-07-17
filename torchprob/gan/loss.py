@@ -83,8 +83,8 @@ def get_adversarial_losses_fn(mode):
         return get_wgan_losses_fn()
 
 
-def gradient_penalty(f, real, fake, mode):
-    def _gradient_penalty(f, real, fake=None):
+def gradient_penalty(f, real, fake, mode, p_norm=2):
+    def _gradient_penalty(f, real, fake=None, penalty_type='gp', p_norm=2):
         def _interpolate(a, b=None):
             if b is None:   # interpolation in DRAGAN
                 beta = torch.rand_like(a)
@@ -98,16 +98,21 @@ def gradient_penalty(f, real, fake, mode):
         x.requires_grad = True
         pred = f(x)
         grad = torch.autograd.grad(pred, x, grad_outputs=torch.ones_like(pred), create_graph=True)[0]
-        norm = grad.view(grad.size(0), -1).norm(p=2, dim=1)
-        gp = ((norm - 1)**2).mean()
+        norm = grad.view(grad.size(0), -1).norm(p=p_norm, dim=1)
+
+        if penalty_type == 'gp':
+            gp = ((norm - 1)**2).mean()
+        elif penalty_type == 'lp':
+            gp = (torch.max(torch.zeros_like(norm), norm - 1)**2).mean()
 
         return gp
 
     if mode == 'none':
         gp = torch.tensor(0, dtype=real.dtype, device=real.device)
-    elif mode == 'dragan':
-        gp = _gradient_penalty(f, real)
-    elif mode == 'wgan-gp':
-        gp = _gradient_penalty(f, real, fake)
+    elif mode in ['dragan', 'dragan-gp', 'dragan-lp']:
+        penalty_type = 'gp' if mode == 'dragan' else mode[-2:]
+        gp = _gradient_penalty(f, real, penalty_type=penalty_type, p_norm=p_norm)
+    elif mode in ['wgan-gp', 'wgan-lp']:
+        gp = _gradient_penalty(f, real, fake, penalty_type=mode[-2:], p_norm=p_norm)
 
     return gp
