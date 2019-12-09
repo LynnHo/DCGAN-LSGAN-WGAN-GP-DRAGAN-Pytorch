@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import skimage.color as color
 import skimage.transform as transform
@@ -45,3 +47,39 @@ def immerge(images, n_rows=None, n_cols=None, padding=0, pad_value=0):
             i * (w + padding):i * (w + padding) + w, ...] = image
 
     return img
+
+
+def grid_split(image, h, w):
+    n_rows = math.ceil(image.shape[0] / h)
+    n_cols = math.ceil(image.shape[1] / w)
+
+    rows = []
+    for r in range(n_rows):
+        cols = []
+        for c in range(n_cols):
+            cols.append(image[r * h: (r + 1) * h, c * w: (c + 1) * w, ...])
+        rows.append(cols)
+
+    return rows
+
+
+def grid_merge(grid, padding=(0, 0), pad_value=(0, 0)):
+    padding = padding if isinstance(padding, (list, tuple)) else [padding, padding]
+    pad_value = pad_value if isinstance(pad_value, (list, tuple)) else [pad_value, pad_value]
+
+    new_rows = []
+    for r, row in enumerate(grid):
+        new_cols = []
+        for c, col in enumerate(row):
+            if c != 0:
+                new_cols.append(np.full([col.shape[0], padding[1], col.shape[2]], pad_value[1], dtype=col.dtype))
+            new_cols.append(col)
+
+        new_cols = np.concatenate(new_cols, axis=1)
+        if r != 0:
+            new_rows.append(np.full([padding[0], new_cols.shape[1], new_cols.shape[2]], pad_value[0], dtype=new_cols.dtype))
+        new_rows.append(new_cols)
+
+    grid_merged = np.concatenate(new_rows, axis=0)
+
+    return grid_merged

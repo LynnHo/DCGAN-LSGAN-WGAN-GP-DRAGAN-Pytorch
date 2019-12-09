@@ -75,13 +75,13 @@ DCGAN                                 | LSGAN
     - CelebA DRAGAN
 
         ```console
-        CUDA_VISIBLE_DEVICES=0 python train.py --dataset=celeba --epoch=25 --adversarial_loss_mode=gan --gradient_penalty_mode=dragan
+        CUDA_VISIBLE_DEVICES=0 python train.py --dataset=celeba --epoch=25 --adversarial_loss_mode=gan --gradient_penalty_mode=1-gp --gradient_penalty_sample_mode=dragan
         ```
 
     - Anime WGAN-GP
 
         ```console
-        CUDA_VISIBLE_DEVICES=0 python train.py --dataset=anime --epoch=200 --adversarial_loss_mode=wgan --gradient_penalty_mode=wgan-gp --n_d=5
+        CUDA_VISIBLE_DEVICES=0 python train.py --dataset=anime --epoch=200 --adversarial_loss_mode=wgan --gradient_penalty_mode=1-gp --gradient_penalty_sample_mode=line --n_d=5
         ```
 
     - see more training exampls in [commands.sh](./commands.sh)

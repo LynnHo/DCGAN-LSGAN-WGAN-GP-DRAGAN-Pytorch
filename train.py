@@ -27,7 +27,8 @@ py.arg('--beta_1', type=float, default=0.5)
 py.arg('--n_d', type=int, default=1)  # # d updates per g update
 py.arg('--z_dim', type=int, default=128)
 py.arg('--adversarial_loss_mode', default='gan', choices=['gan', 'hinge_v1', 'hinge_v2', 'lsgan', 'wgan'])
-py.arg('--gradient_penalty_mode', default='none', choices=['none', 'dragan', 'dragan-lp', 'wgan-gp', 'wgan-lp'])
+py.arg('--gradient_penalty_mode', default='none', choices=['none', '1-gp', '0-gp', 'lp'])
+py.arg('--gradient_penalty_sample_mode', default='line', choices=['line', 'real', 'fake', 'dragan'])
 py.arg('--gradient_penalty_weight', type=float, default=10.0)
 py.arg('--experiment_name', default='none')
 py.arg('--gradient_penalty_d_norm', default='layer_norm', choices=['instance_norm', 'layer_norm'])  # !!!
@@ -37,7 +38,7 @@ args = py.args()
 if args.experiment_name == 'none':
     args.experiment_name = '%s_%s' % (args.dataset, args.adversarial_loss_mode)
     if args.gradient_penalty_mode != 'none':
-        args.experiment_name += '_%s' % args.gradient_penalty_mode
+        args.experiment_name += '_%s_%s' % (args.gradient_penalty_mode, args.gradient_penalty_sample_mode)
 output_dir = py.join('output', args.experiment_name)
 py.mkdir(output_dir)
 
@@ -136,7 +137,7 @@ def train_D(x_real):
     x_fake_d_logit = D(x_fake)
 
     x_real_d_loss, x_fake_d_loss = d_loss_fn(x_real_d_logit, x_fake_d_logit)
-    gp = gan.gradient_penalty(functools.partial(D), x_real, x_fake, mode=args.gradient_penalty_mode)
+    gp = gan.gradient_penalty(functools.partial(D), x_real, x_fake, gp_mode=args.gradient_penalty_mode, sample_mode=args.gradient_penalty_sample_mode)
 
     D_loss = (x_real_d_loss + x_fake_d_loss) + gp * args.gradient_penalty_weight
 
