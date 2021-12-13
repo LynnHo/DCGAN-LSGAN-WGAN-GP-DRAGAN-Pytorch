@@ -1,7 +1,3 @@
-***Recommendation***
-
-- Our GAN based work for facial attribute editing - [AttGAN](https://github.com/LynnHo/AttGAN-Tensorflow).
-
 ***News***
 
 - 28 June 2019: We re-implement these GANs by **Pytorch 1.1**! The old version is here: [v0](https://github.com/LynnHo/WGAN-GP-DRAGAN-Celeba-Pytorch/tree/v0) or in the "v0" directory.
